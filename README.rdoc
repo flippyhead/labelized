@@ -1,6 +1,38 @@
 = labelized
 
-Description goes here.
+== Classes
+Label
+Labeling
+LabelSet
+
+== Usage
+Passing a term in the singular allows only a single label. Plural terms allow multiple labels.
+The optional scope allows for multiple instances of the same tag, isolated by the scope; i.e. different capitalizations
+
+  class Label
+    labelized :scope => :community_id
+  end
+
+  class Thing
+    labelized [:kind, :keywords, :tracks], :label_class_name => Label, :labeling_class_name => 'Labeling'
+  end
+  
+  thing = Thing.new
+  
+  thing.kind
+  thing.kind = ['this', 'that'] # throws Exeption
+  thing.kind = 'this' # OK!
+  
+  thing.kind # 'this'
+  thing.kind_list # 'this'  
+  
+  thing.keywords
+  thing.keywords = ['this', 'that']
+  thing.keywords = 'this, that'
+  thing.keywords # 'this, that'
+  thing.keyword_list # ['this', 'that']
+  
+  thing.tracks
 
 == Contributing to labelized
 
@@ -14,6 +46,5 @@ Description goes here.
 
 == Copyright
 
-Copyright (c) 2011 Peter T. Brown. See LICENSE.txt for
-further details.
+Copyright (c) 2011 Peter T. Brown. See LICENSE.txt for further details.
 
