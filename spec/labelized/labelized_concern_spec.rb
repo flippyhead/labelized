@@ -16,6 +16,7 @@ class Label < ActiveRecord::Base
   
   belongs_to :root
   labelized :scope => :root_id
+  validates_presence_of :root_id
 end
 
 class Root < ActiveRecord::Base
@@ -42,9 +43,28 @@ describe Labelized::LabelizedConcern do
   it{should_not be_nil}
   it{should respond_to(:tags)}
   it{should respond_to(:tags=)}
+  it{should have(1).tag}
   
   it{should respond_to(:labels)}
   it{should respond_to(:labelings)}
+  
+  its(:tags){should be_present}
+  
+  context 'the cached tags' do
+    subject{thing.tags.first}
+    
+    it{should be_instance_of Label}
+    its(:name){should == 'tag one'}
+  end
+    
+  context 'setting labels dynamically' do
+    before do
+      thing.label('tag one', :tags)
+    end
+    
+    its(:tags){should be_present}
+    specify{subject.label_for(:tags).should be_present}
+  end
     
   context 'the result of setting one label' do
     subject{thing.tags= ['tag one']}
@@ -54,14 +74,12 @@ describe Labelized::LabelizedConcern do
     its(:size){should == 1}
   end
   
-  context 'when saving' do
+  context 'after saved' do
     before do
       thing.save
     end
     
-    # its(:tags){should respond_to(:each)} # collection-like thing
-    # its(:tags){should satisfy{|t| t.root == root}}
-    # its(:tags){should satisfy{|t| t.label_set == label_set}}
+    its(:tags){should respond_to(:each)} # collection-like thing
     
     context 'each label' do
       subject{thing.labels.first}

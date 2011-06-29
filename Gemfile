@@ -1,7 +1,10 @@
 source "http://rubygems.org"
 
-gem 'active_support'
-gem 'rails'
+gem 'activesupport', '3.0.7'
+
+group :test do
+  gem 'rails'
+end
 
 group :development do
   gem "bundler"

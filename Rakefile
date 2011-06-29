@@ -18,7 +18,7 @@ Jeweler::Tasks.new do |gem|
   gem.homepage = "http://github.com/flippyhead/labelized"
   gem.license = "MIT"
   gem.summary = %Q{A better tag library}
-  gem.description = %Q{TODO: way better}
+  gem.description = %Q{A better tag library}
   gem.email = "peter@pathable.com"
   gem.authors = ["Peter T. Brown"]
 end

@@ -34,4 +34,12 @@ describe Labelized::LabelConcern do
     Label.label_scope(thing).create.root.should == root
   end
   
+  context 'when created' do
+    before do
+      subject.save!
+    end
+    
+    
+  end
+  
 end

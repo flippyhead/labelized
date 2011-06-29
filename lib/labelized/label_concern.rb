@@ -5,7 +5,6 @@ module Labelized
     included do
       has_many :labelings, :dependent => :destroy
       belongs_to :label_set
-      validates_presence_of :name
       
       extend Support
     end

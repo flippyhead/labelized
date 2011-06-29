@@ -1,9 +1,5 @@
 = labelized
-
-== Classes
-Label
-Labeling
-LabelSet
+A simple Ruby library for labeling things. Similar to and inspired by acts_as_taggable_on.
 
 == Usage
 Passing a term in the singular allows only a single label. Plural terms allow multiple labels.
@@ -14,7 +10,7 @@ The optional scope allows for multiple instances of the same tag, isolated by th
   end
 
   class Thing
-    labelized [:kind, :keywords, :tracks], :label_class_name => Label, :labeling_class_name => 'Labeling'
+    labelized [:kind, :keywords, :tracks]
   end
   
   thing = Thing.new
