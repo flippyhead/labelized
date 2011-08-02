@@ -4,6 +4,10 @@ module Labelized
         
     included do
       extend Support
+      
+      has_many :labelings, :as => :labeled, :dependent => :destroy
+      has_many :labels, :through => :labelings
+      
     end
     
     module InstanceMethods
@@ -33,10 +37,7 @@ module Labelized
         # thing.label 'this', :kind
         # labelized [:kind, :keywords, :tracks], :scope => [:community_id], :label_class => Label, :labeling_class => Labeling
         #
-        class_eval do
-          has_many :labelings, :as => :labeled, :dependent => :destroy
-          has_many :labels, :through => :labelings
-                    
+        class_eval do                    
           define_method('label') do |labels, label_set_name = :label|
             label_class = (labelized_options[:label_class_name] || 'Label').constantize
         
