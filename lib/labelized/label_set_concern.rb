@@ -3,8 +3,7 @@ module Labelized
     extend ActiveSupport::Concern
         
     included do
-      has_many :labelings, :dependent => :destroy
-      has_many :labels #, :through => :labelings
+      has_many :labels
       validates_presence_of :name
       
       extend Support
