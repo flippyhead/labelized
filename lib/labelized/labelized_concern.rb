@@ -44,6 +44,8 @@ module Labelized
             labels = [labels].flatten
             return [] if labels.empty?
             
+            label_class.is_labelized? rescue raise "label_class #{label_class} must be labelized"
+            
             self.labels = cache_label_set(label_set_name, label_class.label_scope(self).find_or_build_by_list(labels, self, label_set_name.to_s))
           end
           
@@ -53,13 +55,17 @@ module Labelized
             cache_label_get(label_set_name) || self.labels.where(:label_set_id => label_set.id)
           end
           
+          # Convenience setter to the label_set name. Accepts a single item or an array.
           labelized_label_set_names.map(&:to_s).each do |label_set_name|
             define_method "#{label_set_name}=" do |labels|
               label labels, label_set_name
             end
-        
+          
+            # Convenience acccessor to the label_set name. If singular will return a single label.
+            # Otherwise returns an array of labels.
             define_method "#{label_set_name}" do
-              label_for label_set_name
+              labels = label_for label_set_name
+              Labelized::Support.singular?(label_set_name) ? labels[0] : labels
             end
           end
         end

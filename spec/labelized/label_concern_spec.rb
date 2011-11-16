@@ -4,7 +4,7 @@ class Label < ActiveRecord::Base
   include Labelized::LabelConcern
   
   belongs_to :root
-  labelized :scope => :root_id
+  labelized
 end
 
 class Root < ActiveRecord::Base

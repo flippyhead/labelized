@@ -23,6 +23,7 @@ module Labelized
     end
     
     def setup_label_scope(scopes)
+      return if scopes.blank?
       self.class_eval do
         scope :label_scope, lambda {|labeled| where(*scopes.collect{|s| {s => labeled.send(s)}}.flatten)}
       end
@@ -38,5 +39,8 @@ module Labelized
       class_inheritable_reader(:labelized_label_set_names)
     end
     
+    def is_labelized?
+      true
+    end
   end
 end

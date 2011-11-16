@@ -29,6 +29,13 @@ class Thing < ActiveRecord::Base
   labelized :tags
 end
 
+class InvalidThing < Thing
+  include Labelized::LabelizedConcern
+  belongs_to :root
+  labelized :tags, :label_class_name => 'Root'
+end
+
+
 # thing.tags # [<label id=1>]
 # label.label_set 
 # thing.labels # [<label id=1>]
@@ -72,6 +79,7 @@ describe Labelized::LabelizedConcern do
     it{should be_instance_of Array}
     it{should include('tag one')}
     its(:size){should == 1}
+
   end
   
   context 'after saved' do
@@ -100,4 +108,9 @@ describe Labelized::LabelizedConcern do
     end
   end
 
+  context 'when invalid' do
+    let(:invalid_thing){InvalidThing.new()}
+    
+    specify{expect{invalid_thing.label'tag', :tags}.to raise_exception}
+  end
 end

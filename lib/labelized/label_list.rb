@@ -1,3 +1,5 @@
+require 'active_support/core_ext/class/attribute_accessors'
+
 module Labelized
   class LabelList < Array
     cattr_accessor :delimiter
