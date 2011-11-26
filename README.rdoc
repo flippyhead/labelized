@@ -20,11 +20,11 @@ Labelized doesn't assume much about your model space. You mix in the appropriate
   class Thing
     include Labelized::LabelizedConcern
     
-    labelized [:kind, :keywords, :tracks]
+    labelized
   end
   
   thing = Thing.new
-  
+  thing.label 
   thing.kind
   thing.kind = ['this', 'that'] # throws Exeption
   thing.kind = 'this' # OK!

@@ -15,7 +15,7 @@ module Labelized
       def labelized(params = {})
         setup_labelized params
         
-	def find_or_build_by_list(labels, labeled, label_set_name = nil)
+	      def find_or_build_by_list(labels, labeled, label_set_name = nil)
           label_set_class = (labelized_options[:label_set_class_name] || 'LabelSet').constantize
 
           unless label_set_name.blank?
