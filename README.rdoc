@@ -1,15 +1,25 @@
 = labelized
-A simple Ruby library for labeling things. Similar to and inspired by acts_as_taggable_on.
+A simple Ruby library for labeling things. Similar to and inspired by acts_as_taggable_on but more flexible. Labelized allows you to control every aspect of label items, including
+the label to labeled relation. Labels can be organized into label sets. Labelized takes the approach of mixing in functionality with configuration.
 
 == Usage
 Passing a term in the singular allows only a single label. Plural terms allow multiple labels.
 The optional scope allows for multiple instances of the same tag, isolated by the scope; i.e. different capitalizations
+Labelized doesn't assume much about your model space. You mix in the appropriate labelized module and configure a few options. 
 
+== A Simple Example
+  
+  # Call labelized on a class you want to act as the label
   class Label
-    labelized :scope => :community_id
+    include Labelized::LabelConcern
+    
+    labelized
   end
-
+  
+  # Include the LabelizedConcern and call labelized on a class you want to be label-able 
   class Thing
+    include Labelized::LabelizedConcern
+    
     labelized [:kind, :keywords, :tracks]
   end
   
