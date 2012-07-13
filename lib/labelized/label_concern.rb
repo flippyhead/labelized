@@ -24,7 +24,7 @@ module Labelized
           end
 
           LabelList.from(labels).map do |label|
-            self.label_scope(labeled).find_or_initialize_by_name(label.strip, :label_set => label_set)
+            self.label_scope(labeled).find_or_initialize_by_name_and_label_set_id(label.strip, label_set.id)
           end
         end          
         
