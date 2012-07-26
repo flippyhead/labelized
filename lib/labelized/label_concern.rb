@@ -27,7 +27,9 @@ module Labelized
             self.label_scope(labeled).find_or_initialize_by_name(label.strip, :label_set => label_set)
           end
         end          
-        
+        def to_s
+          name
+        end
       end
     end    
   end

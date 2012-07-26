@@ -50,13 +50,16 @@ describe Labelized::LabelizedConcern do
   it{should_not be_nil}
   it{should respond_to(:tags)}
   it{should respond_to(:tags=)}
-  it{should have(1).tag}
-  
+  it{should respond_to(:tag_list)}
   it{should respond_to(:labels)}
   it{should respond_to(:labelings)}
   
-  its(:tags){should be_present}
-  
+  context 'with labels set' do
+    it{should have(1).tag}
+    its(:tags){should be_present}
+    its(:tag_list){should == ['tag one']}
+  end
+
   context 'the cached tags' do
     subject{thing.tags.first}
     
@@ -71,6 +74,7 @@ describe Labelized::LabelizedConcern do
     
     its(:tags){should be_present}
     specify{subject.label_for(:tags).should be_present}
+    specify{subject.labels_for(:tags).should be_present}    
   end
     
   context 'the result of setting one label' do
@@ -110,7 +114,6 @@ describe Labelized::LabelizedConcern do
 
   context 'when invalid' do
     let(:invalid_thing){InvalidThing.new()}
-    
-    specify{expect{invalid_thing.label'tag', :tags}.to raise_exception}
+    specify{expect{invalid_thing.label'tag', :tags}.to raise_exception(/must be labelized/)}
   end
 end

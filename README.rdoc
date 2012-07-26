@@ -1,34 +1,30 @@
 = labelized
-A simple Ruby library for labeling things. Similar to and inspired by acts_as_taggable_on but more flexible. Labelized allows you to control every aspect of label items, including
-the label to labeled relation. Labels can be organized into label sets. Labelized takes the approach of mixing in functionality with configuration.
+A simple Ruby library for labeling things. Similar to and inspired by acts_as_taggable_on but more flexible. Labelized allows you to control every aspect of label items, including the label to labeled relation. Labels can be organized into label sets. Labelized takes the approach of mixing in functionality with configuration, so you include just what you need. While labelized depends on ActiveRecord, it doesn't provide you with any models. You mixin labeleized concerns to your own models and have complete control over everything including the labels and how they get linked to your models. 
 
 == Usage
-Passing a term in the singular allows only a single label. Plural terms allow multiple labels.
-The optional scope allows for multiple instances of the same tag, isolated by the scope; i.e. different capitalizations
-Labelized doesn't assume much about your model space. You mix in the appropriate labelized module and configure a few options. 
+Passing a term in the singular allows only a single label. Plural terms allow multiple labels. The optional scope allows for multiple instances of the same tag, isolated by the scope; i.e. different capitalizations. Labelized doesn't assume much about your model space. You mix in the appropriate labelized module and configure a few options. 
 
 == A Simple Example
   
   # Call labelized on a class you want to act as the label
-  class Label
+  class Label < ActiveRecord::Base
     include Labelized::LabelConcern
     
     labelized
   end
   
-  # Include the LabelizedConcern and call labelized on a class you want to be label-able 
-  class Thing
+  # Include the LabelizedConcern and call labelized on a class you want to  label
+  class Thing < ActiveRecord::Base
     include Labelized::LabelizedConcern
     
-    labelized
+    labelized :labels
   end
   
   thing = Thing.new
-  thing.label 
-  thing.kind
-  thing.kind = ['this', 'that'] # throws Exeption
-  thing.kind = 'this' # OK!
-  
+  thing.labels # [] 
+  thing.label 'label one'
+  thing.labels_for 'round', :shape # 
+
   thing.kind # 'this'
   thing.kind_list # 'this'  
   

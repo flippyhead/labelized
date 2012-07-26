@@ -54,6 +54,7 @@ module Labelized
             label_set = label_set_class.label_scope(self).find_or_initialize_by_name(label_set_name)
             cache_label_get(label_set_name) || self.labels.where(:label_set_id => label_set.id)
           end
+          alias_method :labels_for, :label_for
           
           # Convenience setter to the label_set name. Accepts a single item or an array.
           labelized_label_set_names.map(&:to_s).each do |label_set_name|
@@ -66,6 +67,10 @@ module Labelized
             define_method "#{label_set_name}" do
               labels = label_for label_set_name
               Labelized::Support.singular?(label_set_name) ? labels[0] : labels
+            end
+
+            define_method "#{label_set_name.to_s.singularize}_list" do
+              label_for(label_set_name).map(&:to_s)
             end
           end
         end

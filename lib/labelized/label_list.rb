@@ -12,11 +12,12 @@ module Labelized
     end
   
     ##
-    # Returns a new TagList using the given tag string.
+    # Returns a new LabelList using the given string.
+    #
+    # LabelList.delimiter can be used to customize how labels in the string are delimited
     #
     # Example:
-    #   tag_list = TagList.from("One , Two,  Three")
-    #   tag_list # ["One", "Two", "Three"]
+    #   LabelList.from("One , Two,  Three") # ["One", "Two", "Three"]
     def self.from(string)
       glue   = delimiter.ends_with?(" ") ? delimiter : "#{delimiter} "
       string = string.join(glue) if string.respond_to?(:join)
@@ -24,7 +25,7 @@ module Labelized
       new.tap do |tag_list|
         string = string.to_s.dup
 
-        # Parse the quoted tags
+        # Parse the quoted labels
         string.gsub!(/(\A|#{delimiter})\s*"(.*?)"\s*(#{delimiter}\s*|\z)/) { tag_list << $2; $3 }
         string.gsub!(/(\A|#{delimiter})\s*'(.*?)'\s*(#{delimiter}\s*|\z)/) { tag_list << $2; $3 }
 
@@ -33,12 +34,12 @@ module Labelized
     end
 
     ##
-    # Add tags to the tag_list. Duplicate or blank tags will be ignored.
-    # Use the <tt>:parse</tt> option to add an unparsed tag string.
+    # Add labels to the list. Duplicate or blank labels will be ignored.
+    # Use the <tt>:parse</tt> option to add an unparsed label string.
     #
     # Example:
-    #   tag_list.add("Fun", "Happy")
-    #   tag_list.add("Fun, Happy", :parse => true)
+    #   list.add("Fun", "Happy")
+    #   list.add("Fun, Happy", :parse => true)
     def add(*names)
       extract_and_apply_options!(names)
       concat(names)
@@ -47,12 +48,12 @@ module Labelized
     end
 
     ##
-    # Remove specific tags from the tag_list.
-    # Use the <tt>:parse</tt> option to add an unparsed tag string.
+    # Remove specific labels from the list.
+    # Use the <tt>:parse</tt> option to add an unparsed label string.
     #
     # Example:
-    #   tag_list.remove("Sad", "Lonely")
-    #   tag_list.remove("Sad, Lonely", :parse => true)
+    #   list.remove("Sad", "Lonely")
+    #   list.remove("Sad, Lonely", :parse => true)
     def remove(*names)
       extract_and_apply_options!(names)
       delete_if { |name| names.include?(name) }
@@ -60,12 +61,12 @@ module Labelized
     end
 
     ##
-    # Transform the tag_list into a tag string suitable for edting in a form.
-    # The tags are joined with <tt>TagList.delimiter</tt> and quoted if necessary.
+    # Transform the list into a label string suitable for edting in a form.
+    # The labels are joined with <tt>LabelList.delimiter</tt> and quoted if necessary.
     #
     # Example:
-    #   tag_list = TagList.new("Round", "Square,Cube")
-    #   tag_list.to_s # 'Round, "Square,Cube"'
+    #   list = LabelList.new("Round", "Square,Cube")
+    #   list.to_s # 'Round, "Square,Cube"'
     def to_s
       tags = frozen? ? self.dup : self
       tags.send(:clean!)
