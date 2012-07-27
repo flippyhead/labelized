@@ -22,6 +22,10 @@ module Labelized
       self.setup_label_scope(scopes)
     end
     
+    # Sets up scoping for labels and label sets
+    # Typically the labeled item is passed to the scope
+    # So label_set with a :community_id scope, will look for labels with a community_id
+    # that have the same value as the community_id on the thing being labled
     def setup_label_scope(scopes)
       return if scopes.blank?
       self.class_eval do
