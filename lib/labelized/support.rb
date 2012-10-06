@@ -5,23 +5,23 @@ module Labelized
     def self.singular?(str)
       str.to_s.pluralize != str.to_s && str.to_s.singularize == str.to_s
     end
-  
+
     def self.extract_params(*params)
       labels = params.to_a.flatten.compact
       options = labels[-1].kind_of?(Hash) ? labels.slice!(-1) : {}
       labels = labels.map(&:to_sym)
       [labels, options]
     end
-    
+
     def setup_labelized(params)
       label_sets, options = Support.extract_params(params)
       scopes = [options[:scope]].flatten
-      
-      self.setup_labelized_options(options) 
-      self.setup_labelized_label_set_names(label_sets) 
+
+      self.setup_labelized_options(options)
+      self.setup_labelized_label_set_names(label_sets)
       self.setup_label_scope(scopes)
     end
-    
+
     # Sets up scoping for labels and label sets
     # Typically the labeled item is passed to the scope
     # So label_set with a :community_id scope, will look for labels with a community_id
@@ -32,17 +32,17 @@ module Labelized
         scope :label_scope, lambda {|labeled| where(*scopes.collect{|s| {s => labeled.send(s)}}.flatten)}
       end
     end
-    
+
     def setup_labelized_options(options)
-      write_inheritable_attribute(:labelized_options, options)
-      class_inheritable_reader(:labelized_options)
+      class_attribute :labelized_options
+      self.labelized_options = options
     end
-    
+
     def setup_labelized_label_set_names(names)
-      write_inheritable_attribute(:labelized_label_set_names, names)
-      class_inheritable_reader(:labelized_label_set_names)
+      class_attribute :labelized_label_set_names
+      self.labelized_label_set_names = names
     end
-    
+
     def is_labelized?
       true
     end
