@@ -11,7 +11,6 @@ group :development do
   gem "jeweler"  
   gem 'guard'
   gem 'growl'  
-  gem "rcov"
   gem "rspec"  
   gem 'sqlite3'
 end

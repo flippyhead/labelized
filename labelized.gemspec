@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Peter T. Brown"]
-  s.date = "2012-07-27"
+  s.date = "2012-10-28"
   s.description = "A better tag library"
   s.email = "peter@pathable.com"
   s.extra_rdoc_files = [
@@ -29,7 +29,6 @@ Gem::Specification.new do |s|
     "labelized.gemspec",
     "lib/labelized.rb",
     "lib/labelized/label_concern.rb",
-    "lib/labelized/label_concern.rb.orig",
     "lib/labelized/label_list.rb",
     "lib/labelized/label_set_concern.rb",
     "lib/labelized/labeling_concern.rb",
@@ -44,7 +43,7 @@ Gem::Specification.new do |s|
   s.homepage = "http://github.com/flippyhead/labelized"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.11"
+  s.rubygems_version = "1.8.24"
   s.summary = "A better tag library"
 
   if s.respond_to? :specification_version then
@@ -56,7 +55,6 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<jeweler>, [">= 0"])
       s.add_development_dependency(%q<guard>, [">= 0"])
       s.add_development_dependency(%q<growl>, [">= 0"])
-      s.add_development_dependency(%q<rcov>, [">= 0"])
       s.add_development_dependency(%q<rspec>, [">= 0"])
       s.add_development_dependency(%q<sqlite3>, [">= 0"])
     else
@@ -65,7 +63,6 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<jeweler>, [">= 0"])
       s.add_dependency(%q<guard>, [">= 0"])
       s.add_dependency(%q<growl>, [">= 0"])
-      s.add_dependency(%q<rcov>, [">= 0"])
       s.add_dependency(%q<rspec>, [">= 0"])
       s.add_dependency(%q<sqlite3>, [">= 0"])
     end
@@ -75,7 +72,6 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<jeweler>, [">= 0"])
     s.add_dependency(%q<guard>, [">= 0"])
     s.add_dependency(%q<growl>, [">= 0"])
-    s.add_dependency(%q<rcov>, [">= 0"])
     s.add_dependency(%q<rspec>, [">= 0"])
     s.add_dependency(%q<sqlite3>, [">= 0"])
   end
