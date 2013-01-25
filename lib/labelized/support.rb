@@ -34,13 +34,13 @@ module Labelized
     end
     
     def setup_labelized_options(options)
-      write_inheritable_attribute(:labelized_options, options)
-      class_inheritable_reader(:labelized_options)
+      self.class_attribute :labelized_options
+      self.labelized_options = options
     end
     
     def setup_labelized_label_set_names(names)
-      write_inheritable_attribute(:labelized_label_set_names, names)
-      class_inheritable_reader(:labelized_label_set_names)
+      self.class_attribute :labelized_label_set_names
+      self.labelized_label_set_names = names
     end
     
     def is_labelized?
