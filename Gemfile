@@ -1,6 +1,6 @@
 source "http://rubygems.org"
 
-gem 'activesupport'
+gem 'activesupport', '~> 3.2.0'
 
 group :test do
   gem 'rails'
@@ -11,7 +11,6 @@ group :development do
   gem "jeweler"  
   gem 'guard'
   gem 'growl'  
-  gem "rcov"
   gem "rspec"  
   gem 'sqlite3'
 end
