@@ -21,7 +21,7 @@ module Labelized
     end
 
     def label_cache_name(label_set_name)
-      "@_labelized_#{label_set_name}".to_sym
+      "@_labelized_#{label_set_name.to_s.parameterize.underscore}".to_sym
     end
 
     module ClassMethods
