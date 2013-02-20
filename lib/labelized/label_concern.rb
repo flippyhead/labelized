@@ -5,7 +5,7 @@ module Labelized
     extend ActiveSupport::Concern
 
     included do
-      has_many :labelings, :dependent => :destroy
+      has_many :labelings, :inverse_of => :label, :dependent => :destroy
       belongs_to :label_set
 
       extend Support
