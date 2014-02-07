@@ -27,11 +27,11 @@ module Labelized
             self.label_scope(labeled).find_or_initialize_by_name_and_label_set_id(label.strip, label_set.id)
           end
         end
-
-        def to_s
-          name
-        end
       end
+    end
+
+    def to_s
+      name
     end
   end
 end
