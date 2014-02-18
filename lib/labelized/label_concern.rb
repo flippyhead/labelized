@@ -20,11 +20,21 @@ module Labelized
 
           unless label_set_name.blank?
             label_set_name.strip! # ooh lah lah
-            label_set = label_set_class.label_scope(labeled).find_or_initialize_by_name(label_set_name)
+            scope = label_set_class.label_scope labeled
+            label_set = scope.where(:name => label_set_name).first ||
+              scope.new{ |label| label.name = label_set_name }
           end
 
           LabelList.from(labels).map do |label|
-            self.label_scope(labeled).find_or_initialize_by_name_and_label_set_id(label.strip, label_set.id)
+            scope = self.label_scope labeled
+            name = label.strip
+            label_set_id = label_set.id
+
+            scope.where(:name => name, :label_set_id => label_set_id).first ||
+              scope.new do |label|
+                label.name = name
+                label.label_set_id = label_set_id
+              end
           end
         end
       end
