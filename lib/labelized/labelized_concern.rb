@@ -48,7 +48,9 @@ module Labelized
 
           define_method('label_for') do |label_set_name|
             label_set_class = (labelized_options[:label_set_class_name] || 'LabelSet').constantize
-            label_set = label_set_class.label_scope(self).find_or_initialize_by_name(label_set_name)
+            scope = label_set_class.label_scope self
+            label_set = scope.where(:name => label_set_name).first ||
+              scope.new{ |label_set| label_set.name = label_set_name }
             cache_label_get(label_set_name) || self.labels.where(:label_set_id => label_set.id)
           end
           alias_method :labels_for, :label_for

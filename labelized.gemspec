@@ -5,7 +5,7 @@ require 'labelized/version'
 
 Gem::Specification.new do |spec|
   spec.name        = 'labelized'
-  spec.version     = Labelized::VERSION
+  spec.version     = Labelized::VERSION.dup
   spec.authors     = ['Peter T. Brown']
   spec.email       = 'peter@pathable.com'
   spec.description = 'A better tag library'
